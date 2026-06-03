@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quel est votre style de communication ?</title>
+  <style>
+    /* ===========================
+       VARIABLES & RESET
+    =========================== */
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #FFFEF9;
+      --sand: #E8E0D4;
+      --taupe: #C4B8A8;
+      --charcoal: #2C2C2C;
+      --ink: #1A1A1A;
+      --muted: #6B6560;
+
+      --assertif: #4A7C6F;
+      --assertif-light: #EAF4F1;
+      --passif: #5A7BA8;
+      --passif-light: #EAF0F8;
+      --agressif: #B05252;
+      --agressif-light: #F8EAEA;
+      --passif-agressif: #8B6A3E;
+      --passif-agressif-light: #F6EFE4;
+      --manipulateur: #6B5B8C;
+      --manipulateur-light: #F0EBF8;
+
+      --accent: #4A7C6F;
+      --accent-hover: #3A6960;
+      --radius: 14px;
+      --shadow: 0 4px 24px rgba(44,44,44,0.08);
+      --shadow-hover: 0 8px 32px rgba(44,44,44,0.14);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      background-color: var(--cream);
+      color: var(--charcoal);
+      min-height: 100vh;
+      line-height: 1.7;
+    }
+
+    h1 {
+      font-family: 'Georgia', serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: normal;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+
+    h2 {
+      font-family: 'Georgia', serif;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: normal;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    p {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.97rem;
+      color: var(--charcoal);
+      line-height: 1.75;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .header-band {
+      background-color: var(--ink);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-band .logo-text {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--taupe);
+    }
+
+    .header-band .logo-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .screen { display: none; animation: fadeIn 0.45s ease forwards; }
+    .screen.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .welcome-hero {
+      padding: 3.5rem 0 2rem;
+      border-bottom: 1px solid var(--sand);
+      margin-bottom: 2rem;
+    }
+
+    .welcome-hero .eyebrow {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .welcome-hero h1 { margin-bottom: 1.5rem; }
+
+    .welcome-hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .welcome-description {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    .welcome-meta {
+      display: flex;
+      gap: 2rem;
+      margin: 2.5rem 0;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--sand);
+      border-bottom: 1px solid var(--sand);
+    }
+
+    .welcome-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .welcome-meta-item .meta-value {
+      font-family: 'Georgia', serif;
+      font-size: 1.6rem;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .welcome-meta-item .meta-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background-color: var(--ink);
+      color: #fff;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--muted);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--sand);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--taupe);
+      color: var(--charcoal);
+    }
+
+    .quiz-progress-bar-track {
+      height: 3px;
+      background: var(--sand);
+      border-radius: 2px;
+      margin-top: 2.5rem;
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+    }
+
+    .quiz-progress-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 0%;
+    }
+
+    .quiz-progress-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: right;
+      margin-bottom: 2.5rem;
+    }
+
+    .question-block { margin-bottom: 2rem; }
+
+    .question-number {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    .question-text {
+      font-family: 'Georgia', serif;
+      font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+      color: var(--ink);
+      line-height: 1.55;
+      margin-bottom: 1.75rem;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .option-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 1rem 1.15rem;
+      background: var(--warm-white);
+      border: 1.5px solid var(--sand);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+    }
+
+    .option-label:hover {
+      border-color: var(--accent);
+      background: #F4FAF8;
+      transform: translateX(3px);
+    }
+
+    .option-label input[type="radio"] { display: none; }
+
+    .option-label.selected {
+      border-color: var(--accent);
+      background: var(--assertif-light);
+    }
+
+    .option-indicator {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--taupe);
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+
+    .option-label.selected .option-indicator {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .option-label.selected .option-indicator::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .option-text {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.93rem;
+      color: var(--charcoal);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .quiz-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 2.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .quiz-nav .btn-primary:disabled,
+    .quiz-nav .btn-primary[disabled] {
+      opacity: 0.35;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .result-header {
+      padding: 3rem 0 2rem;
+      border-bottom: 1px solid var(--sand);
+      margin-bottom: 2.5rem;
+    }
+
+    .result-eyebrow {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .result-style-name {
+      font-family: 'Georgia', serif;
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: normal;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .result-tagline {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.8;
+    }
+
+    .score-bars { margin: 2.5rem 0; }
+
+    .score-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .score-bar-label {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      width: 130px;
+      flex-shrink: 0;
+      color: var(--muted);
+    }
+
+    .score-bar-track {
+      flex: 1;
+      height: 6px;
+      background: var(--sand);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .score-bar-value {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.8rem;
+      color: var(--muted);
+      width: 28px;
+      text-align: right;
+    }
+
+    .result-section {
+      margin-bottom: 2.5rem;
+      padding: 1.75rem;
+      border-radius: var(--radius);
+      background: var(--warm-white);
+      border: 1px solid var(--sand);
+    }
+
+    .result-section h3 { margin-bottom: 1rem; }
+
+    .result-section p,
+    .result-section li {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.94rem;
+      color: var(--charcoal);
+      line-height: 1.75;
+    }
+
+    .result-section ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .result-section ul li::before {
+      content: '→ ';
+      color: var(--accent);
+      font-weight: bold;
+    }
+
+    .result-section.highlighted { border-left: 3px solid var(--accent); }
+
+    .disclaimer {
+      margin-top: 2.5rem;
+      padding: 1.25rem 1.5rem;
+      background: var(--sand);
+      border-radius: var(--radius);
+    }
+
+    .disclaimer p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 540px) {
+      .welcome-meta { gap: 1.25rem; flex-wrap: wrap; }
+      .score-bar-label { width: 90px; font-size: 0.7rem; }
+      .quiz-nav { justify-content: center; }
+      .result-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header-band">
+  <span class="logo-text">Formation Communication · Hôtellerie</span>
+  <div class="logo-dot"></div>
+</div>
+
+<!-- SCREEN 1 : ACCUEIL -->
+<div id="screen-welcome" class="screen active">
+  <div class="container">
+    <div class="welcome-hero">
+      <p class="eyebrow">Auto-évaluation professionnelle</p>
+      <h1>Quel est votre<br><em>style de communication</em>&nbsp;?</h1>
+      <p class="welcome-description">
+        Dans la vie professionnelle, chaque situation nous amène à communiquer différemment. Ce test vous invite à identifier votre style dominant pour mieux comprendre vos réactions et enrichir votre façon d'interagir avec vos équipes, vos clients et vos managers.
+      </p>
+    </div>
+
+    <div class="welcome-meta">
+      <div class="welcome-meta-item">
+        <span class="meta-value">15</span>
+        <span class="meta-label">Questions</span>
+      </div>
+      <div class="welcome-meta-item">
+        <span class="meta-value">5'</span>
+        <span class="meta-label">Environ</span>
+      </div>
+      <div class="welcome-meta-item">
+        <span class="meta-value">5</span>
+        <span class="meta-label">Profils</span>
+      </div>
+    </div>
+
+    <p style="font-family:'Helvetica Neue',Arial,sans-serif; font-size:0.9rem; color:var(--muted); margin-bottom:2rem;">
+      Répondez spontanément et honnêtement. Il n'y a pas de bonne ou de mauvaise réponse : chaque style reflète une manière d'être face aux situations professionnelles.
+    </p>
+
+    <button class="btn-primary" onclick="startQuiz()">
+      Commencer le test &nbsp;→
+    </button>
+  </div>
+</div>
+
+<!-- SCREEN 2 : QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div class="container">
+    <div class="quiz-progress-bar-track">
+      <div class="quiz-progress-bar-fill" id="progressFill"></div>
+    </div>
+    <p class="quiz-progress-label" id="progressLabel">Question 1 / 15</p>
+
+    <div class="question-block">
+      <p class="question-number" id="questionNumber">Question 01</p>
+      <p class="question-text" id="questionText"></p>
+      <div class="options-list" id="optionsList"></div>
+    </div>
+
+    <div class="quiz-nav">
+      <button class="btn-secondary" id="btnPrev" onclick="prevQuestion()">← Précédent</button>
+      <button class="btn-primary" id="btnNext" onclick="nextQuestion()" disabled>Suivant →</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 3 : RÉSULTAT -->
+<div id="screen-result" class="screen">
+  <div class="container">
+    <div class="result-header">
+      <p class="result-eyebrow" id="resultEyebrow"></p>
+      <h2 class="result-style-name" id="resultStyleName"></h2>
+      <p class="result-tagline" id="resultTagline"></p>
+    </div>
+
+    <div class="score-bars" id="scoreBars"></div>
+
+    <div class="result-section highlighted">
+      <h3>Votre profil</h3>
+      <p id="resultDescription"></p>
+    </div>
+
+    <div class="result-section">
+      <h3>Forces de ce style</h3>
+      <ul id="resultStrengths"></ul>
+    </div>
+
+    <div class="result-section">
+      <h3>Points de vigilance</h3>
+      <ul id="resultWatchouts"></ul>
+    </div>
+
+    <div class="result-section">
+      <h3>Pour aller vers plus d'assertivité</h3>
+      <ul id="resultTips"></ul>
+    </div>
+
+    <div class="disclaimer">
+      <p>
+        <strong>Avis pédagogique :</strong> Ce test est un outil de réflexion conçu dans un cadre de formation professionnelle. Il ne constitue pas un diagnostic psychologique ou clinique. Les résultats sont indicatifs et invitent à une prise de conscience personnelle. Pour un accompagnement approfondi, consultez un professionnel du développement personnel ou des ressources humaines.
+      </p>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn-primary" onclick="restartQuiz()">Recommencer le test</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const questions = [
+    {
+      text: "Lors d'une réunion d'équipe, un collègue coupe la parole plusieurs fois alors que vous êtes en train de présenter une idée importante. Comment réagissez-vous ?",
+      options: [
+        { text: "Je le regarde calmement et je dis : «Je t'en prie, laisse-moi finir, puis tu pourras répondre.»", style: "A" },
+        { text: "Je m'arrête de parler et lui cède la place, même si ça me frustre.", style: "P" },
+        { text: "Je hausse la voix et dis clairement que je n'ai pas terminé et que ce n'est pas acceptable.", style: "AG" },
+        { text: "Je ne dis rien sur le moment, mais je ferai en sorte de l'interrompre à mon tour plus tard.", style: "PA" },
+        { text: "Je fais remarquer à toute l'équipe que certaines personnes ont visiblement du mal à écouter les autres.", style: "M" }
+      ]
+    },
+    {
+      text: "Votre manager vous confie une nouvelle mission urgente alors que vous êtes déjà en surcharge de travail. Que faites-vous ?",
+      options: [
+        { text: "Je lui expose mes priorités actuelles et lui demande ensemble comment réorganiser la charge.", style: "A" },
+        { text: "J'accepte sans rien dire, même si je sais que je ne pourrai pas tout faire.", style: "P" },
+        { text: "Je lui dis que c'est impossible et que j'en ai déjà trop.", style: "AG" },
+        { text: "J'accepte, mais je bâcle intentionnellement le travail pour que ça se voie.", style: "PA" },
+        { text: "J'accepte en glissant que si quelque chose ne se fait pas, ce ne sera pas de ma faute.", style: "M" }
+      ]
+    },
+    {
+      text: "Un client se plaint bruyamment à la réception d'un hôtel d'un problème que vous n'avez pas causé. Comment gérez-vous la situation ?",
+      options: [
+        { text: "Je l'accueille avec calme, reconnais son mécontentement et cherche une solution concrète.", style: "A" },
+        { text: "Je m'excuse profusément et accepte toutes ses demandes pour éviter le conflit.", style: "P" },
+        { text: "Je lui rétorque que ce n'est pas mon problème et qu'il aurait dû vérifier sa réservation.", style: "AG" },
+        { text: "Je suis poli en surface, mais je prends mon temps exprès pour le faire attendre.", style: "PA" },
+        { text: "Je lui explique avec douceur que les autres clients n'ont pas eu ce problème.", style: "M" }
+      ]
+    },
+    {
+      text: "Lors d'un briefing, votre responsable critique publiquement votre travail de façon injuste devant l'équipe. Comment répondez-vous ?",
+      options: [
+        { text: "Je reste composé(e), j'exprime mon désaccord avec les faits et je propose d'en discuter en tête-à-tête.", style: "A" },
+        { text: "Je baisse la tête et absorbe la critique sans dire un mot.", style: "P" },
+        { text: "Je réplique immédiatement et défends mon travail, quelle que soit l'audience.", style: "AG" },
+        { text: "Je hoche la tête, mais je ne transmettrai plus les informations importantes à ce manager.", style: "PA" },
+        { text: "Je souris et félicite le manager devant tous, mais je me plains à d'autres collègues après.", style: "M" }
+      ]
+    },
+    {
+      text: "Un(e) collègue vous demande d'échanger votre week-end de permanence, mais vous avez déjà prévu quelque chose d'important. Que faites-vous ?",
+      options: [
+        { text: "Je lui explique ma situation clairement et je décline poliment en lui proposant une autre date possible.", style: "A" },
+        { text: "J'accepte pour ne pas avoir l'air de mauvaise volonté, même si ça me contrarie vraiment.", style: "P" },
+        { text: "Je lui dis non, sans explication.", style: "AG" },
+        { text: "J'accepte à contrecœur, mais je lui fais sentir subtilement ma mauvaise humeur tout le week-end.", style: "PA" },
+        { text: "J'accepte, mais j'attends le bon moment pour lui demander quelque chose d'important en retour.", style: "M" }
+      ]
+    },
+    {
+      text: "Vous constatez qu'un(e) collègue s'approprie vos idées lors des réunions. Quelle est votre réaction ?",
+      options: [
+        { text: "Je lui en parle en privé, calmement mais fermement, en nommant des exemples précis.", style: "A" },
+        { text: "Je me dis que ce n'est pas grave et que ma valeur sera reconnue un jour ou l'autre.", style: "P" },
+        { text: "Je le/la coupe la prochaine fois devant tout le monde pour revendiquer mon idée à voix haute.", style: "AG" },
+        { text: "Je cesse de partager mes idées en réunion pour lui donner une leçon.", style: "PA" },
+        { text: "Je mentionne discrètement à notre manager que certaines idées semblent parfois «réattribuées».", style: "M" }
+      ]
+    },
+    {
+      text: "Un client vous fait une demande que vous jugez déraisonnable (remise excessive, service impossible à tenir). Comment gérez-vous cela ?",
+      options: [
+        { text: "J'explique clairement ce qui est possible et ce qui ne l'est pas, et je propose une alternative satisfaisante.", style: "A" },
+        { text: "J'essaie de m'arranger coûte que coûte pour ne pas décevoir, même si je sais que c'est intenable.", style: "P" },
+        { text: "Je lui dis franchement que sa demande est irréaliste et que nous ne pouvons pas faire ça.", style: "AG" },
+        { text: "Je dis oui en façade, en sachant que ça ne sera jamais livré comme promis.", style: "PA" },
+        { text: "Je lui dis que je vais essayer, mais je n'ai aucune intention de donner suite.", style: "M" }
+      ]
+    },
+    {
+      text: "Votre équipe doit rendre un projet important et vous réalisez que la charge de travail n'a pas été équitablement répartie. Vous faites comment ?",
+      options: [
+        { text: "Je soulève le problème en réunion, avec les données, et je propose une répartition plus équilibrée.", style: "A" },
+        { text: "Je fais ma part et la part des autres sans rien dire pour ne pas créer de tensions.", style: "P" },
+        { text: "Je me plains ouvertement en réunion que c'est injuste et que certains ne travaillent pas.", style: "AG" },
+        { text: "Je ralentis mon rythme pour ne pas en faire plus que les autres.", style: "PA" },
+        { text: "Je m'assure que le manager est au courant en glissant des commentaires.", style: "M" }
+      ]
+    },
+    {
+      text: "Lors d'un entretien individuel, votre manager vous fait un retour négatif sur votre comportement avec lequel vous n'êtes pas d'accord. Quelle est votre attitude ?",
+      options: [
+        { text: "J'écoute attentivement, j'exprime mon point de vue avec des exemples concrets et je cherche un accord.", style: "A" },
+        { text: "Je hoche la tête et dis «d'accord» même si intérieurement je ne suis pas convaincu(e).", style: "P" },
+        { text: "Je contre-attaque et explique pourquoi ce retour est faux et injuste.", style: "AG" },
+        { text: "J'acquiesce en surface, mais je deviens moins investi(e) dans mon travail dans les semaines suivantes.", style: "PA" },
+        { text: "Je reconnais le retour, mais je mentionne des situations qui montrent que je ne suis pas le/la seul(e) à avoir ce comportement.", style: "M" }
+      ]
+    },
+    {
+      text: "Un(e) collègue vous demande de couvrir une erreur qu'il/elle a commise avant que le manager s'en aperçoive. Que faites-vous ?",
+      options: [
+        { text: "Je lui explique que je ne peux pas le faire, mais je l'aide à trouver comment l'annoncer honnêtement.", style: "A" },
+        { text: "J'accepte pour ne pas le/la mettre dans l'embarras, même si ça me met mal à l'aise.", style: "P" },
+        { text: "Je refuse catégoriquement et le/la préviens que s'il/elle ne le dit pas, je le ferai moi-même.", style: "AG" },
+        { text: "J'accepte, mais je garde cette information «au cas où».", style: "PA" },
+        { text: "J'accepte de couvrir, mais en m'assurant qu'il/elle sache qu'il/elle me doit une faveur.", style: "M" }
+      ]
+    },
+    {
+      text: "Lors d'une formation, le formateur pose une question à laquelle vous connaissez la réponse, mais un collègue répond à voix haute avant vous, et sa réponse est incomplète. Comment réagissez-vous ?",
+      options: [
+        { text: "J'interviens pour compléter la réponse.", style: "A" },
+        { text: "Je garde ma réponse pour moi pour ne pas faire d'ombre à mon collègue.", style: "P" },
+        { text: "Je corrige immédiatement son erreur devant le groupe.", style: "AG" },
+        { text: "Je soupire mais ne dis rien.", style: "PA" },
+        { text: "Je murmure la bonne réponse à quelqu'un à côté de moi.", style: "M" }
+      ]
+    },
+    {
+      text: "Vous êtes chef de rang dans un restaurant et un client se montre très impoli envers un(e) serveur(se) de votre équipe. Comment intervenez-vous ?",
+      options: [
+        { text: "Je m'interpose calmement, je reconnais l'insatisfaction du client et je rappelle le cadre de respect attendu.", style: "A" },
+        { text: "Je reste en retrait pour ne pas envenimer les choses.", style: "P" },
+        { text: "Je remonte les bretelles au client fermement et lui dis que ce comportement n'est pas toléré.", style: "AG" },
+        { text: "Je n'interviens pas, mais je m'assure que le service s'en ressente légèrement.", style: "PA" },
+        { text: "Je privilégie une approche plus informelle avec le client pour détendre l'atmosphère et rétablir une relation positive.", style: "M" }
+      ]
+    },
+    {
+      text: "Votre équipe prend une décision en votre absence avec laquelle vous n'êtes pas du tout d'accord. Quelle est votre réaction ?",
+      options: [
+        { text: "Je demande une réunion pour comprendre le raisonnement et exprimer mon point de vue.", style: "A" },
+        { text: "Je me rallie à la décision sans rien dire.", style: "P" },
+        { text: "J'exprime mon mécontentement et je tente de faire annuler la décision immédiatement.", style: "AG" },
+        { text: "Je me plie à la décision, mais je mets peu d'énergie à la mettre en œuvre.", style: "PA" },
+        { text: "J'échange individuellement avec certains membres de l'équipe pour recueillir leur perception.", style: "M" }
+      ]
+    },
+    {
+      text: "Un(e) collègue vous parle d'un problème personnel qui affecte son travail et vous demande implicitement de l'aide. Vous êtes déjà occupé(e). Comment répondez-vous ?",
+      options: [
+        { text: "Je l'écoute quelques minutes, je lui dis honnêtement que je suis sous pression mais que je peux l'aider à un moment précis.", style: "A" },
+        { text: "Je mets tout en pause et l'aide autant qu'il/elle le souhaite, même si mes propres tâches en pâtissent.", style: "P" },
+        { text: "Je lui dis que ce n'est pas le bon moment et que ce problème ne doit pas empiéter sur le travail.", style: "AG" },
+        { text: "Je l'écoute brièvement tout en poursuivant mon activité, afin de rester disponible sans interrompre complètement mon travail.", style: "PA" },
+        { text: "Je l'écoute attentivement pour recueillir des informations qui pourraient m'être utiles.", style: "M" }
+      ]
+    },
+    {
+      text: "Votre établissement traverse une période difficile. La direction annonce des changements importants qui ne vous conviennent pas. Quelle est votre attitude ?",
+      options: [
+        { text: "Je fais remonter mes préoccupations lors de la prochaine réunion avec des arguments précis et constructifs.", style: "A" },
+        { text: "Je me dis que je n'ai pas mon mot à dire, je m'adapte.", style: "P" },
+        { text: "J'exprime clairement mon désaccord et je cherche à faire évoluer la décision.", style: "AG" },
+        { text: "J'affiche un accord apparent, tout en partageant mes interrogations avec les personnes concernées lorsque l'occasion se présente.", style: "PA" },
+        { text: "Je prends le temps d'échanger avec plusieurs collègues afin de comprendre leurs positions et construire un avis commun.", style: "M" }
+      ]
+    }
+  ];
+
+  const profiles = {
+    A: {
+      name: "Style Assertif",
+      color: "var(--assertif)",
+      eyebrow: "Votre style dominant est",
+      tagline: "Vous exprimez vos besoins et opinions clairement, tout en restant ouvert(e) aux autres. Ce style est souvent la clé de relations professionnelles saines et durables.",
+      description: "Le style assertif se caractérise par la capacité à s'exprimer avec clarté et respect, à défendre ses positions sans écraser celles des autres. Vous savez poser des limites, formuler des demandes directes et gérer les désaccords en cherchant des solutions mutuellement satisfaisantes. Dans le secteur hôtelier, ce style favorise une communication fluide avec les équipes et contribue à une expérience client de qualité.",
+      strengths: [
+        "Capacité à exprimer clairement ses besoins et désaccords",
+        "Relations professionnelles fondées sur le respect mutuel",
+        "Gestion constructive des conflits et des feedbacks",
+        "Confiance en soi stable, sans besoin de dominer ou de plaire à tout prix",
+        "Crédibilité et cohérence perçues par les collègues et la hiérarchie"
+      ],
+      watchouts: [
+        "Peut parfois être perçu(e) comme trop direct(e) dans des contextes très hiérarchisés",
+        "Nécessite de maîtriser ses émotions même dans les situations de forte pression",
+        "Exige un effort de calibration selon les interlocuteurs (clients difficiles, managers autoritaires)"
+      ],
+      tips: [
+        "Continuez à pratiquer l'écoute active pour renforcer votre assertivité dans les échanges complexes",
+        "Entraînez-vous à formuler des demandes en mode « je » pour exprimer vos ressentis sans accusation",
+        "Aidez vos collègues à développer ce style en modélisant des comportements constructifs au quotidien",
+        "Utilisez la méthode DESC (Décrire, Exprimer, Spécifier, Conséquences) pour les situations délicates"
+      ]
+    },
+    P: {
+      name: "Style Passif",
+      color: "var(--passif)",
+      eyebrow: "Votre style dominant est",
+      tagline: "Vous avez tendance à effacer vos propres besoins pour maintenir la paix. Derrière cette discrétion se cachent souvent des ressources et une intelligence relationnelle précieuses.",
+      description: "Le style passif se manifeste par une difficulté à exprimer ses opinions, ses besoins ou ses désaccords par crainte du conflit ou du rejet. Dans le secteur hôtelier, ce style peut conduire à une surcharge de travail silencieuse, à une frustration accumulée ou à un manque de reconnaissance. Il est souvent le reflet d'une grande empathie et d'un sens aigu de l'harmonie collective.",
+      strengths: [
+        "Grande capacité d'adaptation et de flexibilité",
+        "Sens aigu de l'écoute et de l'empathie envers les autres",
+        "Discrétion appréciée dans certains contextes de service",
+        "Peu de conflits directs, ce qui facilite certaines relations",
+        "Tendance à prioriser le bien collectif"
+      ],
+      watchouts: [
+        "Frustration et insatisfaction qui s'accumulent sans être exprimées",
+        "Risque de surcharge de travail en acceptant tout sans limite",
+        "Besoins personnels ignorés, ce qui peut mener à l'épuisement professionnel",
+        "Peut être perçu(e) comme manquant de leadership ou de prise d'initiative"
+      ],
+      tips: [
+        "Commencez par de petites prises de parole dans des contextes bienveillants pour gagner confiance",
+        "Apprenez à identifier vos besoins en vous posant la question : «Qu'est-ce qui est juste pour moi ici ?»",
+        "Entraînez-vous à formuler des refus simples et respectueux : «Je comprends ta demande, mais ce n'est pas possible pour moi aujourd'hui.»",
+        "Rappelez-vous qu'exprimer un désaccord n'est pas synonyme d'agression — c'est un acte de respect envers vous-même et envers l'autre"
+      ]
+    },
+    AG: {
+      name: "Style Agressif",
+      color: "var(--agressif)",
+      eyebrow: "Votre style dominant est",
+      tagline: "Vous exprimez vos besoins avec beaucoup d'énergie et de conviction. Cette force peut devenir un véritable atout lorsqu'elle est canalisée avec souplesse.",
+      description: "Le style agressif se caractérise par une expression directe et souvent intense de ses opinions et besoins, parfois au détriment des autres. Dans le secteur hôtelier, ce style peut créer des tensions avec les équipes ou les clients, mais il reflète également une forte conviction et une capacité à agir avec détermination. L'enjeu est d'apprendre à moduler cette intensité selon les situations.",
+      strengths: [
+        "Clarté et franchise dans l'expression des idées",
+        "Capacité à prendre des décisions rapidement sous pression",
+        "Energie et engagement forts dans la défense de ses convictions",
+        "Peu d'ambiguïté dans les messages envoyés",
+        "Efficacité dans les situations d'urgence qui nécessitent du leadership"
+      ],
+      watchouts: [
+        "Risque de détériorer les relations professionnelles et la confiance",
+        "Peut inhiber la prise de parole des autres membres de l'équipe",
+        "Génère souvent des résistances ou des conflits ouverts",
+        "Peut nuire à l'expérience client et à l'image de l'établissement"
+      ],
+      tips: [
+        "Entraînez-vous à marquer une pause de quelques secondes avant de répondre dans les situations de tension",
+        "Distinguez le fait de la personne : critiquer un comportement plutôt qu'attaquer l'individu",
+        "Pratiquez la reformulation empathique : «Si je comprends bien, tu ressens...» avant d'exprimer votre point de vue",
+        "Identifiez vos déclencheurs émotionnels et préparez des réponses alternatives en amont"
+      ]
+    },
+    PA: {
+      name: "Style Passif-Agressif",
+      color: "var(--passif-agressif)",
+      eyebrow: "Votre style dominant est",
+      tagline: "Vous gérez les tensions en les exprimant de manière indirecte. Ce style révèle souvent une difficulté à être entendu(e) et un besoin de trouver de nouvelles voies d'expression.",
+      description: "Le style passif-agressif combine une apparence de conformité avec une résistance ou une hostilité exprimée indirectement : silence prolongé, soupirs, travail bâclé, évitement stratégique. Dans le secteur hôtelier, ce style peut créer un climat d'ambiguïté qui pèse sur la cohésion d'équipe. Il est souvent le signe d'une frustration réelle qui n'a pas trouvé de canal d'expression sain.",
+      strengths: [
+        "Capacité à éviter les conflits directs dans des environnements très tendus",
+        "Sensibilité aux injustices et aux déséquilibres dans les relations",
+        "Intelligence situationnelle pour naviguer dans des contextes complexes",
+        "Capacité d'observation fine des dynamiques de groupe"
+      ],
+      watchouts: [
+        "Crée un climat d'incertitude et de méfiance dans l'équipe",
+        "Les messages indirects sont souvent mal interprétés ou non reçus",
+        "Frustration qui s'accumule sans jamais être résolue réellement",
+        "Peut nuire à la réputation professionnelle et à la confiance des collègues"
+      ],
+      tips: [
+        "Identifiez les situations où vous ressentez une frustration et mettez des mots dessus le plus tôt possible",
+        "Pratiquez l'expression directe de vos désaccords dans des contextes à faible enjeu d'abord",
+        "Utilisez des formulations en «je» : «Je me sens frustré(e) quand...» au lieu de laisser transparaître le mécontentement",
+        "Cherchez des espaces de dialogue sécurisants (entretien individuel, médiation) pour exprimer vos ressentis"
+      ]
+    },
+    M: {
+      name: "Style Manipulateur",
+      color: "var(--manipulateur)",
+      eyebrow: "Votre style dominant est",
+      tagline: "Vous avez développé une forte intelligence stratégique pour naviguer dans les relations. L'enjeu est de l'utiliser de manière ouverte et éthique pour créer de la confiance durable.",
+      description: "Le style manipulateur se caractérise par l'usage de moyens indirects pour influencer les autres : sous-entendus, flatteries calculées, rétention d'information, jeux de pouvoir subtils. Souvent développé dans des environnements où l'expression directe semblait risquée, ce style révèle une réelle habileté sociale qui, réorientée, peut devenir un atout de leadership et d'influence positive.",
+      strengths: [
+        "Intelligence relationnelle et sociale très développée",
+        "Capacité à lire les dynamiques de groupe et les motivations des autres",
+        "Sens stratégique et vision à long terme des situations",
+        "Aptitude naturelle à la persuasion et à la négociation",
+        "Habilité à naviguer dans des environnements complexes"
+      ],
+      watchouts: [
+        "Érosion de la confiance lorsque les stratégies indirectes sont perçues",
+        "Relations fondées sur l'utilité plutôt que sur l'authenticité",
+        "Risque de réputation négative dans les équipes à long terme",
+        "Difficulté à maintenir des relations durables et profondes"
+      ],
+      tips: [
+        "Expérimentez l'expression directe de vos besoins : vous pourriez être surpris(e) du résultat",
+        "Distinguez l'influence éthique (convaincre par des arguments honnêtes) de la manipulation (convaincre par des détours)",
+        "Travaillez votre vulnérabilité relationnelle : la confiance se construit dans l'authenticité, pas dans la stratégie",
+        "Utilisez votre intelligence sociale au service du collectif de manière transparente : c'est là que réside votre vrai potentiel"
+      ]
+    }
+  };
+
+  let currentQuestion = 0;
+  let answers = new Array(questions.length).fill(null);
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function startQuiz() {
+    currentQuestion = 0;
+    answers = new Array(questions.length).fill(null);
+    renderQuestion();
+    showScreen('screen-quiz');
+  }
+
+  function restartQuiz() {
+    startQuiz();
+    showScreen('screen-welcome');
+  }
+
+  function renderQuestion() {
+    const q = questions[currentQuestion];
+    const total = questions.length;
+    const progress = ((currentQuestion + 1) / total) * 100;
+
+    document.getElementById('progressFill').style.width = progress + '%';
+    document.getElementById('progressLabel').textContent = `Question ${currentQuestion + 1} / ${total}`;
+    document.getElementById('questionNumber').textContent = `Question ${String(currentQuestion + 1).padStart(2, '0')}`;
+    document.getElementById('questionText').textContent = q.text;
+
+    const optionsList = document.getElementById('optionsList');
+    optionsList.innerHTML = '';
+
+    const shuffledOptions = shuffleOptions(q.options, currentQuestion);
+
+    shuffledOptions.forEach((opt) => {
+      const label = document.createElement('label');
+      label.className = 'option-label';
+      if (answers[currentQuestion] === opt.style) label.classList.add('selected');
+
+      label.innerHTML = `
+        <input type="radio" name="q${currentQuestion}" value="${opt.style}" ${answers[currentQuestion] === opt.style ? 'checked' : ''}>
+        <div class="option-indicator"></div>
+        <span class="option-text">${opt.text}</span>
+      `;
+
+      label.addEventListener('click', () => selectAnswer(opt.style, label));
+      optionsList.appendChild(label);
+    });
+
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+
+    btnPrev.style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+
+    const hasAnswer = answers[currentQuestion] !== null;
+    const isLast = currentQuestion === total - 1;
+
+    btnNext.textContent = isLast ? 'Voir mes résultats →' : 'Suivant →';
+    btnNext.disabled = !hasAnswer;
+  }
+
+  function shuffleOptions(options, seed) {
+    const arr = [...options];
+    let s = seed * 9301 + 49297;
+    for (let i = arr.length - 1; i > 0; i--) {
+      s = (s * 9301 + 49297) % 233280;
+      const j = Math.floor((s / 233280) * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function selectAnswer(style, clickedLabel) {
+    answers[currentQuestion] = style;
+    document.querySelectorAll('.option-label').forEach(l => l.classList.remove('selected'));
+    clickedLabel.classList.add('selected');
+    document.getElementById('btnNext').disabled = false;
+  }
+
+  function nextQuestion() {
+    if (answers[currentQuestion] === null) return;
+    if (currentQuestion < questions.length - 1) {
+      currentQuestion++;
+      renderQuestion();
+    } else {
+      showResults();
+    }
+  }
+
+  function prevQuestion() {
+    if (currentQuestion > 0) {
+      currentQuestion--;
+      renderQuestion();
+    }
+  }
+
+  function showResults() {
+    const scores = { A: 0, P: 0, AG: 0, PA: 0, M: 0 };
+    answers.forEach(a => { if (a) scores[a]++; });
+
+    const dominant = Object.entries(scores).reduce((a, b) => b[1] > a[1] ? b : a)[0];
+    const profile = profiles[dominant];
+
+    document.getElementById('resultEyebrow').textContent = profile.eyebrow;
+    document.getElementById('resultEyebrow').style.color = profile.color;
+    document.getElementById('resultStyleName').textContent = profile.name;
+    document.getElementById('resultTagline').textContent = profile.tagline;
+
+    const styleLabels = { A: 'Assertif', P: 'Passif', AG: 'Agressif', PA: 'Passif-Agressif', M: 'Manipulateur' };
+    const styleColors = {
+      A: 'var(--assertif)', P: 'var(--passif)', AG: 'var(--agressif)',
+      PA: 'var(--passif-agressif)', M: 'var(--manipulateur)'
+    };
+
+    const scoreBarsEl = document.getElementById('scoreBars');
+    scoreBarsEl.innerHTML = '<h3 style="margin-bottom:1.25rem;">Répartition de vos réponses</h3>';
+
+    Object.entries(scores).forEach(([key, val]) => {
+      const pct = Math.round((val / questions.length) * 100);
+      const row = document.createElement('div');
+      row.className = 'score-bar-row';
+      row.innerHTML = `
+        <span class="score-bar-label">${styleLabels[key]}</span>
+        <div class="score-bar-track">
+          <div class="score-bar-fill" data-width="${pct}" style="background:${styleColors[key]}; width:0%"></div>
+        </div>
+        <span class="score-bar-value">${val}/15</span>
+      `;
+      scoreBarsEl.appendChild(row);
+    });
+
+    document.getElementById('resultDescription').textContent = profile.description;
+
+    const strengthsEl = document.getElementById('resultStrengths');
+    strengthsEl.innerHTML = '';
+    profile.strengths.forEach(s => {
+      const li = document.createElement('li');
+      li.textContent = s;
+      strengthsEl.appendChild(li);
+    });
+
+    const watchoutsEl = document.getElementById('resultWatchouts');
+    watchoutsEl.innerHTML = '';
+    profile.watchouts.forEach(w => {
+      const li = document.createElement('li');
+      li.textContent = w;
+      watchoutsEl.appendChild(li);
+    });
+
+    const tipsEl = document.getElementById('resultTips');
+    tipsEl.innerHTML = '';
+    profile.tips.forEach(t => {
+      const li = document.createElement('li');
+      li.textContent = t;
+      tipsEl.appendChild(li);
+    });
+
+    showScreen('screen-result');
+
+    setTimeout(() => {
+      document.querySelectorAll('.score-bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.width + '%';
+      });
+    }, 200);
+  }
+</script>
+</body>
+</html>
